@@ -219,6 +219,10 @@ public class IdServiceImpl implements IdService<AutnTxn> {
 				entity.setTransactionLimit(Objects.nonNull(data[3]) ? Integer.parseInt(String.valueOf(data[3])) : null);
 				entity.setToken(String.valueOf(data[4]));
 			}
+			
+			System.out.println("-----------------------entity-------------------");
+			System.out.println(entity.toString());
+			System.out.println("-----------------------entity-------------------");
 
 			if (Objects.nonNull(entity.getExpiryTimestamp())
 					&& DateUtils.before(entity.getExpiryTimestamp(), DateUtils.getUTCCurrentDateTime())) {
