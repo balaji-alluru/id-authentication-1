@@ -20,7 +20,8 @@ on:
       - 1.*
       - develop
       - MOSIP*
-      - ES-842
+      - ES-842 
+      - cellbox*
 
 jobs:
   build-maven-authentication:
