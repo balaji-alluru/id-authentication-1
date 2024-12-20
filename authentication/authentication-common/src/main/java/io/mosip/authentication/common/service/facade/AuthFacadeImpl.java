@@ -149,6 +149,7 @@ public class AuthFacadeImpl implements AuthFacade {
 
 		String idvid = authRequestDTO.getIndividualId();
 		String idvidHash = securityManager.hash(idvid);
+		System.out.println("idvidhash  ---->  "+idvidHash);
 		String idvIdType = IdType.getIDTypeStrOrDefault(authRequestDTO.getIndividualIdType());
 		logger.debug(IdAuthCommonConstants.SESSION_ID, "AuthFacedImpl", "authenticateIndividual: ",
 				idvIdType + "-" + idvidHash);
