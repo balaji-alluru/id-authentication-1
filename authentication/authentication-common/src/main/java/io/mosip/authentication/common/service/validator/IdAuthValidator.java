@@ -316,6 +316,9 @@ public abstract class IdAuthValidator implements Validator {
 	 */
 	private void validateIdtypeUinVid(String id, String idTypeOrAlias, Errors errors, String idFieldName) {
 		Set<String> allowedIdTypeSet = getAllowedIdTypes();
+		System.out.println("------------------------------------------------------------------------");
+        System.out.println("Internal auth api  " + allowedIdTypeSet.toString());
+        System.out.println("------------------------------------------------------------------------");
 		// Checks for null IdType
 		if (StringUtils.isEmpty(idTypeOrAlias)) {
 			mosipLogger.error(SESSION_ID, this.getClass().getSimpleName(), VALIDATE,

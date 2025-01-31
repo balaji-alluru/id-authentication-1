@@ -129,7 +129,9 @@ public class InternalAuthController {
 			throws IdAuthenticationAppException, IdAuthenticationBusinessException, IdAuthenticationDaoException {
 		if(request instanceof ObjectWithMetadata) {
 			ObjectWithMetadata requestWithMetadata = (ObjectWithMetadata) request;
-
+         System.out.println("------------------------------------------------------------------------");
+         System.out.println("Internal auth api");
+         System.out.println("------------------------------------------------------------------------");
 			boolean isAuth = false;
 			Optional<PartnerDTO> partner = Optional.empty();
 			AuthTransactionBuilder authTxnBuilder = authTransactionHelper
