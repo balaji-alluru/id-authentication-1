@@ -577,6 +577,9 @@ public abstract class BaseIDAFilter implements Filter {
 	protected Map<String, Object> getRequestBody(InputStream requestBody) throws IdAuthenticationAppException {
 		try {
 			String reqStr = IOUtils.toString(requestBody, Charset.defaultCharset());
+			System.out.println("---------------------------------------------------------------------------");
+		        System.out.println(reqStr);
+		        System.out.println("---------------------------------------------------------------------------");
 			// requestBody empty for service like VID
 			return reqStr.isEmpty() ? null : mapper.readValue(reqStr, new TypeReference<Map<String, Object>>() {
 			});
