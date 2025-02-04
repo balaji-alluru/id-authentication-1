@@ -5,6 +5,7 @@ import static io.mosip.authentication.core.constant.IdAuthCommonConstants.METADA
 import static io.mosip.authentication.core.constant.IdAuthCommonConstants.SIGNATURE;
 import static io.mosip.authentication.core.constant.IdAuthCommonConstants.VERSION;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -580,6 +581,15 @@ public abstract class BaseIDAFilter implements Filter {
 			System.out.println("---------------------------------------------------------------------------");
 		        System.out.println(reqStr);
 		        System.out.println("---------------------------------------------------------------------------");
+			String filePath = "/home/mosip/req.txt";
+			try {
+				    FileWriter writer=new FileWriter(filePath);
+				    writer.write("request : \n" + reqStr);
+				    writer.close();
+				}catch (Exception e){
+				    System.out.println("Unable to write in to file");
+				}
+			
 			// requestBody empty for service like VID
 			return reqStr.isEmpty() ? null : mapper.readValue(reqStr, new TypeReference<Map<String, Object>>() {
 			});
