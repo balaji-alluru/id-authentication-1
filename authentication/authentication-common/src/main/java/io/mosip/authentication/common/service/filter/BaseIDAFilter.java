@@ -122,6 +122,10 @@ public abstract class BaseIDAFilter implements Filter {
 			throws IOException, ServletException {
 
 		String reqUrl = ((HttpServletRequest) request).getRequestURL().toString();
+                System.out.println("---------------------------------------------------------------------------");
+		System.out.println(reqUrl);
+		System.out.println("---------------------------------------------------------------------------");
+		
 		// Bypass the filter for specific URLs
 		if (reqUrl.contains("swagger") || reqUrl.contains("api-docs") || reqUrl.contains("actuator") || reqUrl.contains("callback")) {
 			chain.doFilter(request, response);
@@ -145,6 +149,11 @@ public abstract class BaseIDAFilter implements Filter {
 				// Avoiding flush and commit while data validation exception handling
 			}
 		};
+	        System.out.println("---------------------------------------------------------------------------");
+                System.out.println(requestWrapper.toString());
+		System.out.println("---------------------------------------------------------------------------");
+		
+		
 
 		Map<String, Object> requestBody = null;
 		try {
