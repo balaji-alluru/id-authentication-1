@@ -154,6 +154,8 @@ public class AuthController {
 					.createAndSetAuthTxnBuilderMetadataToRequest(authrequestdto, !isAuth, partner);
 			
 			try {
+				System.out.println("-----------------------------api auth-----------------------------------");
+				System.out.println("-------------------------------------------------------------------------");
 				String idType = Objects.nonNull(authrequestdto.getIndividualIdType()) ? authrequestdto.getIndividualIdType()
 						: idTypeUtil.getIdType(authrequestdto.getIndividualId()).getType();
 				authrequestdto.setIndividualIdType(idType);
