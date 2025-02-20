@@ -132,15 +132,15 @@ public abstract class BaseAuthFilter extends BaseIDAFilter {
 	}
 
 	protected boolean verifySignature(String jwsSignature, String requestData, String domain) {
-		if (isSignatureVerificationRequired()) {
-			try {
-				return securityManager.verifySignature(jwsSignature, domain, requestData, isTrustValidationRequired());
-			} catch (Exception e) {
-				mosipLogger.error(IdAuthCommonConstants.SESSION_ID, "verifySignature", BASE_AUTH_FILTER,
-						"Invalid JWS data: " + e.getMessage());
-				return false;
-			}
-		}
+//		if (isSignatureVerificationRequired()) {
+//			try {
+//				return securityManager.verifySignature(jwsSignature, domain, requestData, isTrustValidationRequired());
+//			} catch (Exception e) {
+//				mosipLogger.error(IdAuthCommonConstants.SESSION_ID, "verifySignature", BASE_AUTH_FILTER,
+//						"Invalid JWS data: " + e.getMessage());
+//				return false;
+//			}
+//		}
 		return true;
 	}
 
@@ -182,36 +182,36 @@ public abstract class BaseAuthFilter extends BaseIDAFilter {
 
 	private void validateSignature(String signature, ResettableStreamHttpServletRequest requestWrapper)
 			throws IdAuthenticationAppException {
-		try {
-			if (isSignatureVerificationRequired()) {
-				if (StringUtils.isEmpty(signature)) {
-					mosipLogger.error(IdAuthCommonConstants.SESSION_ID, EVENT_FILTER, BASE_AUTH_FILTER,
-							"signature is empty or null");
-					throw new IdAuthenticationAppException(
-							IdAuthenticationErrorConstants.MISSING_INPUT_PARAMETER.getErrorCode(),
-							String.format(IdAuthenticationErrorConstants.MISSING_INPUT_PARAMETER.getErrorMessage(),
-									SIGNATURE_HEADER));
-				} else {
-					String requestData = IOUtils.toString(requestWrapper.getInputStream(), Charset.defaultCharset());
-
-					requestWrapper.resetInputStream();
-					if (!verifySignature(signature,
-							requestData,
-							DomainType.AUTH.getType())) {
-						mosipLogger.error(IdAuthCommonConstants.SESSION_ID, EVENT_FILTER, BASE_AUTH_FILTER,
-								"signature header verification failed");
-						String errorMessage = String.format(IdAuthenticationErrorConstants.DSIGN_FALIED.getErrorMessage(),
-								SIGNATURE_HEADER);
-						throw new IdAuthenticationAppException(
-								IdAuthenticationErrorConstants.DSIGN_FALIED.getErrorCode(),
-								errorMessage);
-					}
-				}
-				requestWrapper.resetInputStream();
-			}
-		} catch (IOException e) {
-			throw new IdAuthenticationAppException(IdAuthenticationErrorConstants.UNABLE_TO_PROCESS, e);
-		}
+//		try {
+//			if (isSignatureVerificationRequired()) {
+//				if (StringUtils.isEmpty(signature)) {
+//					mosipLogger.error(IdAuthCommonConstants.SESSION_ID, EVENT_FILTER, BASE_AUTH_FILTER,
+//							"signature is empty or null");
+//					throw new IdAuthenticationAppException(
+//							IdAuthenticationErrorConstants.MISSING_INPUT_PARAMETER.getErrorCode(),
+//							String.format(IdAuthenticationErrorConstants.MISSING_INPUT_PARAMETER.getErrorMessage(),
+//									SIGNATURE_HEADER));
+//				} else {
+//					String requestData = IOUtils.toString(requestWrapper.getInputStream(), Charset.defaultCharset());
+//
+//					requestWrapper.resetInputStream();
+//					if (!verifySignature(signature,
+//							requestData,
+//							DomainType.AUTH.getType())) {
+//						mosipLogger.error(IdAuthCommonConstants.SESSION_ID, EVENT_FILTER, BASE_AUTH_FILTER,
+//								"signature header verification failed");
+//						String errorMessage = String.format(IdAuthenticationErrorConstants.DSIGN_FALIED.getErrorMessage(),
+//								SIGNATURE_HEADER);
+//						throw new IdAuthenticationAppException(
+//								IdAuthenticationErrorConstants.DSIGN_FALIED.getErrorCode(),
+//								errorMessage);
+//					}
+//				}
+//				requestWrapper.resetInputStream();
+//			}
+//		} catch (IOException e) {
+//			throw new IdAuthenticationAppException(IdAuthenticationErrorConstants.UNABLE_TO_PROCESS, e);
+//		}
 	}
 
 	/**
