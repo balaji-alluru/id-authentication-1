@@ -41,6 +41,9 @@ public class AuthFiltersValidator {
 		for (IMosipAuthFilter authFilter : enabledAuthFilters) {
 			// This will run auth filter validate one by one and any exception thrown from
 			// one filter will skip the execution of the rest.
+			System.out.println("---------------------------authFilter---------------------------------------");
+	        System.out.println(authFilter);
+	        System.out.println("------------------------------------------------------------------");
 			authFilter.validate(authRequestDto, identityData, properties);
 		}
 	}
