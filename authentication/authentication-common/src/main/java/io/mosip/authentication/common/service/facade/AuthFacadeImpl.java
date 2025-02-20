@@ -178,7 +178,11 @@ public class AuthFacadeImpl implements AuthFacade {
 		
 		Map<String, Object> idResDTO = idService.processIdType(idvIdType, idvid, idInfoHelper.isBiometricDataNeeded(authRequestDTO),
 				markVidConsumed, filterAttributes);
-
+		
+        System.out.println("---------------------------idResDTO---------------------------------------");
+        System.out.println(idResDTO);
+        System.out.println("------------------------------------------------------------------");
+        
 		String token = idService.getToken(idResDTO);
 
 		AuthResponseDTO authResponseDTO;
@@ -311,24 +315,39 @@ public class AuthFacadeImpl implements AuthFacade {
 
 		processOTPAuth(authRequestDTO, token, isAuth, authStatusList, idType, authTokenId, partnerId, authTxnBuilder, idvidHash);
 
+		System.out.println("---------------------------otp auth status---------------------------------------");
+        System.out.println(authStatusList);
+        System.out.println("------------------------------------------------------------------");
 		if (!isMatchFailed(authStatusList)) {
 			processDemoAuth(authRequestDTO, idInfo, token, isAuth, authStatusList, idType, authTokenId, partnerId,
 					authTxnBuilder, idvidHash);
+			System.out.println("---------------------------demo auth status---------------------------------------");
+	        System.out.println(authStatusList);
+	        System.out.println("------------------------------------------------------------------");
 		}
 
 		if (!isMatchFailed(authStatusList)) {
 			processBioAuth(authRequestDTO, idInfo, token, isAuth, authStatusList, idType, authTokenId, partnerId,
 					authTxnBuilder, idvidHash);
+			System.out.println("---------------------------bio auth status---------------------------------------");
+	        System.out.println(authStatusList);
+	        System.out.println("------------------------------------------------------------------");
 		}
 
 		if (!isMatchFailed(authStatusList)) {
 			processTokenAuth(authRequestDTO, idInfo, token, isAuth, authStatusList, idType, authTokenId, partnerId,
 					authTxnBuilder, idvidHash);
+			System.out.println("---------------------------token auth status---------------------------------------");
+	        System.out.println(authStatusList);
+	        System.out.println("------------------------------------------------------------------");
 		}
 
 		if (!isMatchFailed(authStatusList)) {
 			processPasswordAuth(authRequestDTO, idInfo, token, isAuth, authStatusList, idType, authTokenId, partnerId,
 					authTxnBuilder, idvidHash);
+			System.out.println("---------------------------password auth status---------------------------------------");
+	        System.out.println(authStatusList);
+	        System.out.println("------------------------------------------------------------------");
 		}
 	
 		return authStatusList;
@@ -363,6 +382,10 @@ public class AuthFacadeImpl implements AuthFacade {
 				bioValidationStatus = bioAuthService.authenticate(authRequestDTO, token, idInfo, partnerId, isAuth);
 				authStatusList.add(bioValidationStatus);
 				statusInfo = bioValidationStatus;
+				
+				System.out.println("---------------------------Auth Status List Bio---------------------------------------");
+		        System.out.println(authStatusList);
+		        System.out.println("------------------------------------------------------------------");
 
 				boolean isStatus = statusInfo != null && statusInfo.isStatus();
 				saveAndAuditBioAuthTxn(authRequestDTO, token, idType, isStatus, authTokenId, !isAuth, partnerId,
@@ -400,6 +423,10 @@ public class AuthFacadeImpl implements AuthFacade {
 				demoValidationStatus = demoAuthService.authenticate(authRequestDTO, token, idInfo, partnerId);
 				authStatusList.add(demoValidationStatus);
 				statusInfo = demoValidationStatus;
+				
+				System.out.println("---------------------------Auth Status List demo---------------------------------------");
+		        System.out.println(authStatusList);
+		        System.out.println("------------------------------------------------------------------");
 
 				boolean isStatus = statusInfo != null && statusInfo.isStatus();
 				auditHelper.audit(AuditModules.DEMO_AUTH, getAuditEvent(isAuth), authRequestDTO.getTransactionID(),
@@ -440,6 +467,9 @@ public class AuthFacadeImpl implements AuthFacade {
 				otpValidationStatus = otpAuthService.authenticate(authRequestDTO, token, Collections.emptyMap(),
 						partnerId);
 				authStatusList.add(otpValidationStatus);
+				System.out.println("---------------------------process OTP Auth---------------------------------------");
+		        System.out.println(otpValidationStatus);
+		        System.out.println("------------------------------------------------------------------");
 
 				boolean isStatus = otpValidationStatus != null && otpValidationStatus.isStatus();
 				auditHelper.audit(AuditModules.OTP_AUTH, getAuditEvent(isAuth), authRequestDTO.getTransactionID(),

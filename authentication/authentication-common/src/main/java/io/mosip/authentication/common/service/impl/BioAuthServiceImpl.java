@@ -75,10 +75,20 @@ public class BioAuthServiceImpl implements BioAuthService {
 //				verifyBiometricDevice(authRequestDTO.getRequest().getBiometrics());
 //			}
 			List<MatchInput> listMatchInputs = constructMatchInput(authRequestDTO, bioIdentity);
+			System.out.println("---------------------------List Match Input bio---------------------------------------");
+	        System.out.println(listMatchInputs);
+	        System.out.println("------------------------------------------------------------------");
 			List<MatchOutput> listMatchOutputs = getMatchOutput(listMatchInputs, authRequestDTO, bioIdentity,
 					partnerId);
+			System.out.println("---------------------------List Match Input bio---------------------------------------");
+	        System.out.println(listMatchOutputs);
+	        System.out.println("------------------------------------------------------------------");
 			// Using OR condition on the match output for Bio auth.
 			boolean bioMatched = listMatchOutputs.stream().anyMatch(MatchOutput::isMatched);
+			
+			System.out.println("---------------------------Match bio---------------------------------------");
+	        System.out.println(bioMatched);
+	        System.out.println("------------------------------------------------------------------");
 			return AuthStatusInfoBuilder.buildStatusInfo(bioMatched, listMatchInputs, listMatchOutputs,
 					BioAuthType.values(), idMappingConfig);
 		}

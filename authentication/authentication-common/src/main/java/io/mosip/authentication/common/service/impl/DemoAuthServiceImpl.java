@@ -71,8 +71,16 @@ public class DemoAuthServiceImpl implements DemoAuthService {
 		}
 
 		List<MatchInput> listMatchInputs = constructMatchInput(authRequestDTO, demoEntity);
+		
+		System.out.println("---------------------------List Match Input demo---------------------------------------");
+        System.out.println(listMatchInputs);
+        System.out.println("------------------------------------------------------------------");
 
 		List<MatchOutput> listMatchOutputs = getMatchOutput(listMatchInputs, authRequestDTO, demoEntity, partnerId);
+		
+		System.out.println("---------------------------List Match output demo---------------------------------------");
+        System.out.println(listMatchOutputs);
+        System.out.println("------------------------------------------------------------------");
 		// Using AND condition on the match output for Bio auth.
 		boolean demoMatched = !listMatchOutputs.isEmpty() && listMatchOutputs.stream().allMatch(MatchOutput::isMatched);
 		return AuthStatusInfoBuilder.buildStatusInfo(demoMatched, listMatchInputs, listMatchOutputs,

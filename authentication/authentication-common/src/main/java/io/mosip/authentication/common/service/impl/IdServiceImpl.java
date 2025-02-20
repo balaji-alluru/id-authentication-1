@@ -238,6 +238,10 @@ public class IdServiceImpl implements IdService<AutnTxn> {
 			Map<String, String> demoDataMap = mapper.readValue(entity.getDemographicData(), Map.class);
 			Set<String> filterAttributesInLowercase = filterAttributes.isEmpty() ? Set.of()
 					: filterAttributes.stream().map(String::toLowerCase).collect(Collectors.toSet());
+			
+			System.out.println("-----------------------------filter att------------------------------------------------");
+			System.out.println(filterAttributesInLowercase);
+			System.out.println("-----------------------------------------------------------------------------");
 
 			if (!filterAttributesInLowercase.isEmpty()) {
 				Map<String, String> demoDataMapPostFilter = demoDataMap.entrySet().stream()
@@ -245,7 +249,9 @@ public class IdServiceImpl implements IdService<AutnTxn> {
 						.collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 				responseMap.put(DEMOGRAPHICS, decryptConfiguredAttributes(id, demoDataMapPostFilter));
 			}
-
+			System.out.println("-----------------------------demo resp map------------------------------------------------");
+			System.out.println(responseMap);
+			System.out.println("-----------------------------------------------------------------------------");
 			if (entity.getBiometricData() != null) {
 				Map<String, String> bioDataMap = mapper.readValue(entity.getBiometricData(), Map.class);
 				if (!filterAttributesInLowercase.isEmpty()) {
@@ -255,6 +261,9 @@ public class IdServiceImpl implements IdService<AutnTxn> {
 					responseMap.put(BIOMETRICS, decryptConfiguredAttributes(id, bioDataMapPostFilter));
 				}
 			}
+			System.out.println("----------------------------bio resp map-------------------------------------------------");
+			System.out.println(responseMap);
+			System.out.println("-----------------------------------------------------------------------------");
 			responseMap.put(TOKEN, entity.getToken());
 			responseMap.put(ID_HASH, hashedId);
 			logger.info(IdAuthCommonConstants.SESSION_ID, this.getClass().getSimpleName(), "getIdentity",
