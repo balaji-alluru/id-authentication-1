@@ -232,6 +232,9 @@ public class IdServiceImpl implements IdService<AutnTxn> {
 				}
 				throw new IdAuthenticationBusinessException(errorConstant);
 			}
+			System.out.println("-----------------------------id entity------------------------------------------------");
+			System.out.println(entity);
+			System.out.println("-----------------------------------------------------------------------------");
 
 			Map<String, Object> responseMap = new LinkedHashMap<>();
 
